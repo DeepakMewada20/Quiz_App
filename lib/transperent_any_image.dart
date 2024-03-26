@@ -19,13 +19,29 @@ void main(List<String> args) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-          
+                //this is the first way to transperent image
+                //using og Opacity widget
+                Opacity(
+                  opacity: 0.3,
+                  child: Image.asset(
+                    'assets/images/quiz-logo.png',
+                    height: 300,
+                    width: 300,
+                    //help of color widget you can transperet any image.
+                  ),
+                ),
+                //this is the second way to transperent image.
+                //using color widget
                 Image.asset(
                   'assets/images/quiz-logo.png',
                   height: 300,
                   width: 300,
+                  //help of color widget you can transperet any image
+                  color: const Color.fromARGB(125, 255, 255, 255),
                 ),
-                const SizedBox(height: 50,),
+                const SizedBox(
+                  height: 50,
+                ),
                 const Text(
                   'Quiz',
                   style: TextStyle(
