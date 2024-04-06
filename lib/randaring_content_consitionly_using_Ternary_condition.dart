@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app_adv/qustion.dart';
 import 'package:quiz_app_adv/start_screen.dart';
 
-class Quiz extends StatefulWidget {
-  const Quiz({super.key});
+class QuizUsingTernaryOperater extends StatefulWidget {
+  const QuizUsingTernaryOperater({super.key});
   @override
-  State<Quiz> createState() {
+  State<QuizUsingTernaryOperater> createState() {
     return _QuizState();
   }
 }
 
-class _QuizState extends State<Quiz> {
+class _QuizState extends State<QuizUsingTernaryOperater> {
   var activeStreen = 'start-Screen';
 
   void switchScreen() {
@@ -21,6 +21,11 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(context) {
+    //randaring content consitionly using ternary Operater
+    Widget screenWidget=StartScreen(switchScreen);
+    if(activeStreen=='qustion-Screen'){
+      screenWidget=const QustionScreen();
+    }
     return MaterialApp(
       home: Scaffold(
         body: Center(
@@ -36,9 +41,10 @@ class _QuizState extends State<Quiz> {
               ),
             ),
             //randaring content consitionly using ternary Operater
-            child: activeStreen == 'start-Screen'
-                ? StartScreen(switchScreen)
-                : const QustionScreen(),
+            child: screenWidget,
+                // activeStreen == 'start-Screen'
+                // ? StartScreen(switchScreen)
+                // : const QustionScreen(),
           ),
         ),
       ),
