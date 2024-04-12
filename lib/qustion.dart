@@ -11,8 +11,6 @@ class QustionScreen extends StatefulWidget{
 class _QustionState extends State<QustionScreen>{
   @override
   Widget build(context){
-    return const Center(
-      child: Text('Qustion!'),
-    );
+    return const Text('Qustion!');
   }
 }
