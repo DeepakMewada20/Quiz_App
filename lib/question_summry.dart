@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp2/number_circal.dart';
+import 'package:quiz_app_adv/number_circal.dart';
 
 class QuestionSummry extends StatelessWidget {
   const QuestionSummry(this.summaryData, {super.key});
