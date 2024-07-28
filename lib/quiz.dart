@@ -1,50 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app_adv/qustion.dart';
-import 'package:quiz_app_adv/start_screen.dart';
+import 'package:quizapp2/data/question.dart';
+import 'package:quizapp2/question_screen.dart';
+import 'package:quizapp2/start_screen.dart';
+import 'package:quizapp2/result_screen.dart';
 
-class Quiz extends StatefulWidget {
-  const Quiz({super.key});
-
+class Quiz extends StatefulWidget{
+  const Quiz({super.key}); 
   @override
-  State<Quiz> createState() {
+  State<Quiz> createState(){
     return _QuizState();
   }
+
 }
 
-class _QuizState extends State<Quiz> {
-  Widget? activeStreen;
+class _QuizState extends State<Quiz>{
   
-  @override
-  void initState() {
-    activeStreen = StartScreen(switchScreen);
-    super.initState();
+  var achtiveScreen='start-screen';
+
+  List<String> selectAnswer=[];
+
+  // @override
+  // void initState() {
+  //   achtiveScreen=StartScreen(switchScreen);
+  //   super.initState();
+  // }
+
+  void switchScreen(){
+    setState(() {
+      achtiveScreen = 'question-screen';
+    });
   }
 
-  void switchScreen() {
+  void chooseAnswer(String answer){
+    selectAnswer.add(answer);
+    if(selectAnswer.length==question.length){
+      setState(() {
+        achtiveScreen='result-screen';
+      });
+    }
+  }
+  
+  void restartQuiz(){
     setState(() {
-      activeStreen = const QustionScreen();
+      achtiveScreen='question-screen';
+      selectAnswer=[];
     });
   }
 
   @override
   Widget build(context) {
-    return MaterialApp(
+
+    Widget screenWidget = StartScreen(switchScreen);
+
+    if(achtiveScreen=='question-screen'){
+       screenWidget=QuestionScreen(onselectAnswer: chooseAnswer);
+    }
+    if(achtiveScreen=='result-screen'){
+      screenWidget=ResultScreen(chooseAnswer: selectAnswer,restartQuiz: restartQuiz);
+    }
+    
+
+    return  MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 69, 13, 191),
-                  Color.fromARGB(255, 70, 34, 126),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+        body: Container(
+          decoration:const  BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 68, 24, 145),
+                Color.fromARGB(255, 78, 30, 123),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-            child: activeStreen,
           ),
-        ),
+          child:screenWidget,
+          ),
       ),
     );
   }
